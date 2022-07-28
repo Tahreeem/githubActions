@@ -19,3 +19,4 @@ jobs:
           node-latest: '14'
       - run: npm install -g bats
       - run: bats -v
+    needs: testJob
