@@ -1,0 +1,12 @@
+name: myworkflow
+on: [push]
+jobs:
+  testJob:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with: 
+          node-latest: '14'
+      - run: npm install -g bats
+      - run: bats -v
