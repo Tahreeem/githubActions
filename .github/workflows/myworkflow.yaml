@@ -10,7 +10,7 @@ jobs:
           node-latest: '14'
       - run: npm install -g bats
       - run: bats -v
-  anotherJob:
+  newJob:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,7 +20,7 @@ jobs:
       - run: npm install -g bats
       - run: bats -v
     needs: testJob
-  anotherJob2:
+  newJob2:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
