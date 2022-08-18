@@ -1,0 +1,124 @@
+---
+- hosts: default
+  become: yes
+  become_user: "ec2-user"
+  vars:
+    node_version: "16.15.1"
+    ansible_user_id: "ec2-user"
+  tasks:
+    - name: Install curl
+      become: yes
+      become_user: "ec2-user"
+      yum:
+        name: curl
+        state: present
+
+    - name: Install git
+      become: yes
+      become_user: "root"
+      yum:
+        name: git
+        state: present
+        update_cache: yes
+
+    # - name: Check for node.js
+    #   shell: test "$(node -v 2> /dev/null)" = v{{node_version}}
+    #   register: nodejs_installed
+    #   ignore_errors: True
+    #   tags:
+    #     - nodejs
+
+    # - name: "Is nodejs installed?"
+    #   debug:
+    #     msg: Is nodejs installed = {{ nodejs_installed }}
+
+    - name: Read-write git checkout from github
+      become: yes
+      become_user: "ec2-user"
+      ansible.builtin.git:
+        repo: https://github.com/gregjopa/express-app-testing-demo
+        dest: /home/{{ ansible_user_id }}/hello
+        force: true
+
+    # - name: Create destination dir if it does not exist
+    #   file:
+    #     mode: 0775
+    #     path: "/home/{{ ansible_user_id }}/.nvm"
+    #     state: directory
+    #   when: "nvm_dir is not defined"
+
+    # - name: Source bashrc
+    #   shell: >
+    #     source /home/{{ ansible_user_id }}/.bashrc
+
+    - name: Save nvm to file
+      become: yes
+      become_user: "ec2-user"
+      shell: >
+        whoami && curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+      # args:
+      #   warn: true
+      # register: nvm_result
+      # when: nodejs_installed.failed
+
+    # - name: Change file ownership, group and permissions
+    #   ansible.builtin.file:
+    #     path: install.sh
+    #     mode: '0777'
+    
+    # - name: Install nvm
+    #   shell: >
+    #     /home/ec2-user/install.sh
+
+    - name: Activate nvm and install Node.js
+      become: yes
+      become_user: "ec2-user"
+      shell: >
+        whoami && . ~/.nvm/nvm.sh && nvm install --lts
+      # source /.bashrc
+      # when: nodejs_installed.failed
+
+    # - name: Source bashrc
+    #   become: yes
+    #   become_user: "ec2-user"
+    #   shell: >
+    #     source ~/.bashrc
+
+    # - name: nvm_result
+    #   debug:
+    #     msg: "nvm_result: {{ nvm_result }}"
+
+    - name: NVM & Node debug
+      become: yes
+      become_user: "ec2-user"
+      shell: >
+        cat ~/.bashrc && source ~/.bashrc && whoami && node --version
+
+    - name: Delete e2e_tests and README
+      become: yes
+      become_user: "ec2-user"
+      shell: >
+        whoami && cd hello && rm -rf e2e_tests && rm README.md
+
+    # # - name: Install app dependencies
+    # #   shell: >
+    # #     cd hello && sudo npm i
+
+    # - name: NVM & Node debug
+    #   shell: >
+    #     whoami && source /root/.bashrc && nvm --version
+
+    - name: NVM & Node debug
+      become: yes
+      become_user: "ec2-user"
+      shell: >
+        source ~/.bashrc && cd ~/hello && npm i
+
+    # - name: Install app dependencies
+    #   become: yes
+    #   become_user: "ec2-user"
+    #   npm:
+    #     name: gregjopa/express-app-testing-demo
+    #     path: /home/ec2-user/hello
+
+    
