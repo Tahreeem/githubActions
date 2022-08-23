@@ -23,6 +23,11 @@ jobs:
           python -m pip install ansible
           which ansible-playbook
           ansible-playbook --version
+          PATH=$PATH:/opt/hostedtoolcache/Python/3.9.13/x64/bin/ansible-playbook
+          echo $PATH
+
+      - run: |
+          echo $PATH
 
       # validate templates
       - name: Validate Template
