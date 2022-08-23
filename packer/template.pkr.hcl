@@ -27,7 +27,7 @@ build {
   ]
 
   provisioner "ansible" {
-      playbook_file = "../ansible-practice/playbook-01.yml"
+      playbook_file = "../ansible/playbook.yml"
       extra_arguments = [ "-vvvv" ]
   }
 
