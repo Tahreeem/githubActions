@@ -20,5 +20,11 @@ jobs:
           command: validate
           arguments: -syntax-only
           target: packer/template.pkr.hcl
+
+      - name: Build Template
+        uses: hashicorp/packer-github-actions@master
+        with:
+          command: build
+          target: packer/template.pkr.hcl
       
   
