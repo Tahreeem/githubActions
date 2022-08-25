@@ -50,5 +50,6 @@ jobs:
         with:
           packer-version: 1.7.0
 
-      - run: |
-          packer --version
+      - name: validating using packer
+        run: |
+          packer validate -syntax-only packer/template.pkr.hcl
