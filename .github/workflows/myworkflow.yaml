@@ -29,18 +29,26 @@ jobs:
       - run: |
           echo $PATH
 
-      # validate templates
-      - name: Validate Template
-        uses: hashicorp/packer-github-actions@master
-        with:
-          command: validate
-          arguments: -syntax-only
-          target: packer/template.pkr.hcl
+      # # validate templates
+      # - name: Validate Template
+      #   uses: hashicorp/packer-github-actions@master
+      #   with:
+      #     command: validate
+      #     arguments: -syntax-only
+      #     target: packer/template.pkr.hcl
 
-      - name: Build Template
-        uses: hashicorp/packer-github-actions@master
+      # - name: Build Template
+      #   uses: hashicorp/packer-github-actions@master
+      #   with:
+      #     command: build
+      #     target: packer/template.pkr.hcl
+
+# we have to change the steps that use docker (hashicorp ones) and install things directly on github server 
+
+      - name: Installs latest Packer
+        uses: hashicorp-contrib/setup-packer@v1
         with:
-          command: build
-          target: packer/template.pkr.hcl
-      
-  
+          packer-version: 1.7.0
+
+      - run: |
+          packer --version
