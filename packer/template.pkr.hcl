@@ -28,7 +28,7 @@ build {
 
   provisioner "ansible" {
       playbook_file = "ansible/playbook.yml"
-      extra_arguments = [ "-vvvv" ]
+      extra_arguments = [ "-v" ]
   }
 
   //   post-processor "shell-local" {
