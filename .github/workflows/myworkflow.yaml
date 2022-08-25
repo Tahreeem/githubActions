@@ -27,7 +27,7 @@ jobs:
           echo $PATH
 
       - run: |
-          echo $PATH
+          ansible-playbook --version
 
       # # validate templates
       # - name: Validate Template
@@ -53,3 +53,7 @@ jobs:
       - name: validating using packer
         run: |
           packer validate -syntax-only packer/template.pkr.hcl
+
+      - name: build using packer
+        run: |
+          packer build packer/template.pkr.hcl
