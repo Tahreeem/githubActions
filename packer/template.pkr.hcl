@@ -6,9 +6,9 @@ source "amazon-ebs" "source_name" {
   ami_name                    = "packer-test-ami-{{timestamp}}"
   instance_type               = "t3.small"
   source_ami                  = "ami-0cff7528ff583bf9a"
-  vpc_id                      = "vpc-07375ee25417f2106"
+  vpc_id                      = "vpc-00b2cb19b9c843963"
   associate_public_ip_address = true
-  subnet_id                   = "subnet-0186d05342ffbb8f9"
+  subnet_id                   = "subnet-07f98cb07b6449b60"
   ssh_username                = "ec2-user"
   ssh_interface               = "public_ip"
   region                      = "us-east-1"
