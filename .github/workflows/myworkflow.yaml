@@ -63,3 +63,8 @@ jobs:
       - name: build using packer
         run: |
           packer build packer/template.pkr.hcl
+
+      - name: Terraform Init
+        working-directory: ./Terraform
+        id: init
+        run: terraform init
