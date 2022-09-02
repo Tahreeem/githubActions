@@ -68,3 +68,8 @@ jobs:
         working-directory: ./Terraform
         id: init
         run: terraform init
+
+      - name: Terraform Apply
+        working-directory: ./Terraform
+        id: apply
+        run: terraform apply -auto-approve
